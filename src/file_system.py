@@ -21,6 +21,11 @@ def unzip_file():
     with ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(ROOT_DIR + '/files')
 
+def remove_files():
+    print("deleting FIles...")
+    os.remove(zip_path)
+    os.remove(rnc_file_path)
+
 def importDataToDb():
     print("reading file...")
     df = pd.read_csv(rnc_file_path, sep='|', encoding='ISO-8859-1', header=None)
@@ -29,6 +34,7 @@ def importDataToDb():
     df.columns = ['rnc_cedula', 'business_name', 'comercial_name', 'service_type', 'registered_date', 'state', 'payment_scheme']
 
     conn = create_connection()
+    remove_files()
     print("importing file to db...")
     df.to_sql('taxpayers', conn, if_exists='replace', index=False)
 
@@ -40,4 +46,4 @@ def execute():
 
 
 if __name__ == "__main__":
-    execute()
+    importDataToDb()
