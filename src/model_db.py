@@ -7,12 +7,11 @@ def dict_factory(cursor, row):
         dicti[col[0]] = row[index]
     return dicti
 
-
 def create_connection():
     conn = None
 
     try:
-        conn = sqlite3.connect('src/DB.db')
+        conn = sqlite3.connect('./src/DB.db')
         conn.row_factory = dict_factory
     except Error as e:
         print('Error conecting to db' + str(e))
@@ -89,4 +88,4 @@ def select_taxpayer_by_state(state, limit=100):
 
 
 if __name__ == "__main__":
-    select_all_taxpayers()
+    create_connection()
