@@ -6,7 +6,7 @@ from model_db import create_connection
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 zip_path = os.path.join(ROOT_DIR, 'files/DGII_RNC.zip')
-rnc_file_path = os.path.join(ROOT_DIR, 'files/TMP/DGII_RNC.txt')
+rnc_file_path = os.path.join(ROOT_DIR, 'files/TMP/DGII_RNC.TXT')
 
 
 def download_file():
