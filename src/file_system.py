@@ -2,6 +2,7 @@ from urllib.request import urlretrieve
 from zipfile import ZipFile
 import pandas as  pd
 import os
+import codecs
 from model_db import create_connection
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -20,10 +21,9 @@ def unzip_file():
     with ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(ROOT_DIR + '/files')
 
-
 def importDataToDb():
     print("reading file...")
-    df = pd.read_csv(rnc_file_path, sep='|', encoding='windows-1252', header=None)
+    df = pd.read_csv(rnc_file_path, sep='|', encoding='ISO-8859-1', header=None)
     cols = [4,5,6,7]
     df.drop(df.columns[cols], axis=1, inplace=True)
     df.columns = ['rnc_cedula', 'business_name', 'comercial_name', 'service_type', 'registered_date', 'state', 'payment_scheme']
