@@ -23,7 +23,7 @@ def unzip_file():
 
 def importDataToDb():
     print("reading file...")
-    df = pd.read_csv(content, sep='|', encoding='utf-8', header=None)
+    df = pd.read_csv(rnc_file_path, sep='|', encoding='utf-8', header=None)
     cols = [4,5,6,7]
     df.drop(df.columns[cols], axis=1, inplace=True)
     df.columns = ['rnc_cedula', 'business_name', 'comercial_name', 'service_type', 'registered_date', 'state', 'payment_scheme']
