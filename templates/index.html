@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxpayers API DOC</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="grid grid-cols-4 h-screen flex">
+        <!-- content wrapper -->
+
+
+        <nav class="border-r-4 border-gray-200">
+
+            <h1 class="text-center text-white font-medium text-3xl" style="background-color: #119BFF;">Taxpayers API
+            </h1>
+            <div class="ml-5 pr-5 mt-5">
+                <ul class="mb-5">
+                    <li class="mb-2 text-2xl"> <a href="#overview" class="hover:text-blue-600">Overview</a></li>
+                    <li class="text-2xl"><a href="#endpoints" class="hover:text-blue-600">Endpoints</a></li>
+                    <li>
+                        <ul class="ml-5 font-medium text-1xl">
+                            <li class="mb-1"><a href="#taxpayers" class="hover:text-blue-600">/taxpayers</a> <span
+                                    style="color: #3CBD3A;">GET</span></li>
+                            <li class="mb-1"><a href="#taxpayers-rnc" class="hover:text-blue-600">/taxpayers/by-rnc</a> <span
+                                    style="color: #3CBD3A;">GET</span>
+                            </li>
+                            <li class="mb-1"><a href="#taxpayers-name" class="hover:text-blue-600">/taxpayers/by-name</a> <span
+                                    style="color: #3CBD3A;">GET</span>
+                            </li>
+                            <li class="mb-1"><a href="#taxpayers-active" class="hover:text-blue-600">/taxpayers/active-state</a> <span
+                                    style="color: #3CBD3A;">GET</span></li>
+                            <li class="mb-1"><a href="#taxpayers-inactive" class="hover:text-blue-600">/taxpayers/inactive-state </a><span
+                                    style="color: #3CBD3A;">GET</span></li>
+                            <li class="mb-1"><a href="#taxpayers-discharged" class="hover:text-blue-600">/taxpayers/discharged-state</a> <span
+                                    style="color: #3CBD3A;">GET</span></li>
+                        </ul>
+                    </li>
+                </ul>
+                <hr>
+                <p class="mb-3 font-medium text-gray-600">Si tienes alguna observación o sugerencia
+                    puedes enviarla a este correo:
+                    <a class="underline text-blue-500" href="mailto:bytepyr@gmail.com">bytepyr@gmail.com</a>
+                </p>
+        </nav>
+        <div class="col-span-3 bg-gray-100 ml-5 overflow-y-auto mt-5">
+
+            <div class="grid grid-cols-2">
+                <div>
+                    <h2 class="font-bold text-4xl underline" id="overview">Overview</h2>
+                    <p>Taxpayers API es un servicio REST que facilita la obtención de datos sobre los contribuyentes
+                        registrados
+                        en
+                        la DGII para que otras aplicaciones puedan tener acceso a estos datos. Esta información es
+                        recolectada
+                        de la
+                        plataforma <a class="underline text-blue-500"
+                            href="https://dgii.gov.do/servicios/consultas/Paginas/RNC.aspx" target="blank">DGII RNC</a>
+                        y
+                        orginazada en formato JSON para un facil manejo y consumo.
+
+                    </p>
+                    <p>
+                        Entre los datos que se pueden obtener están: RNC o Cédula, Razón social, Nombre comercial,
+                        estado, fecha de registro, etc.
+                    </p>
+                </div>
+                <div class="ml-5">
+                    <div class="max-w-sm rounded overflow-hidden">
+                        <div class="w-full text-gray-400 ">
+                            <h4 class="pl-2" style="background-color: #474A52;">BASE URL</h4>
+                        </div>
+                        <div class="mb-3" style="background-color: #70747F;">
+                            <p class="text-white pl-2">https://dgii-taxpayers-info.com/api/v1</p>
+                        </div>
+                    </div>
+                    <div class="max-w-sm rounded overflow-hidden mt-6">
+                        <div class="w-full text-gray-400 ">
+                            <h4 class="pl-2" style="background-color: #474A52;">Taxpayer Object</h4>
+                        </div>
+                        <div style="background-color: #EFEFEF;">
+                            <div class="ml-5">
+                                <p >
+                                    {
+                                        <div class="ml-3">
+
+                                    <span class="text-orange-700">“rnc_cedula”</span>: <span
+                                        class="text-blue-700">“Cédula o
+                                        RNC”</span>,<br>
+                                    <span class="text-orange-700">“business_name”</span>: <span
+                                        class="text-blue-700">“Razón
+                                        social”</span>,<br>
+                                    <span class="text-orange-700">“comercial_name”</span>: <span
+                                        class="text-blue-700">“Nombre
+                                        Comercial”</span>,<br>
+                                    <span class="text-orange-700">“service_type”</span>: <span
+                                        class="text-blue-700">“Tipo
+                                        de
+                                        Servicio”</span>,<br>
+                                    <span class="text-orange-700">“registered_date”</span>: <span
+                                        class="text-blue-700">“Fecha
+                                        de
+                                        registro”</span>,<br>
+                                    <span class="text-orange-700">“state”</span>: <span
+                                        class="text-blue-700">“Estado”</span>,<br>
+                                    <span class="text-orange-700">“payment_schema”</span>: <span
+                                        class="text-blue-700">“Régimen
+                                        de
+                                        pagos”</span>
+                                    </div>
+                                    }
+
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pr-6">
+
+                <h2 id="#endpoints" class="font-bold text-4xl mb-3 underline">Endpoints</h2>
+
+                <h3 id="taxpayers" class="font-semibold text-3xl">/taxpayers <span style="color: #3CBD3A;">GET</span>
+                </h3>
+                <p class="mb-3 text-xl font-medium text-gray-700">Consultar todos los contribuyentes</p>
+                <h4 class="font-medium text-2xl">Parámetros</h4>
+                <hr class="mr-5 mb-2">
+                <h5><span class="font-bold">limit</span> <span class="font-semibold ml-3">/taxpayers?limit=3</span></h5>
+                <p class="text-gray-700">Este parámetro es para limitar el número de registros. Como es una gran
+                    cantidad de registros, por defecto limit tiene como valor 100,
+                    o sea que si este parámetro no es especificado en la URL va a retornar
+                    100 registros.</p>
+                <h4 class="font-medium text-2xl mt-2">Response</h4>
+                <hr class="mr-5 mb-5">
+                <img src="https://drive.google.com/uc?export=view&id=1wO8eRkfqnFi3lGnPHbAA2C0sADs4vvW9" alt="texpayers List">
+
+                <h3 id="taxpayers-rnc" class="font-semibold text-3xl">/taxpayers/by-rnc <span
+                        style="color: #3CBD3A;">GET</span></h3>
+                <p class="mb-3 text-xl font-medium text-gray-700">Consultar por RNC o Cédula un contribuyente. También
+                    puedes consultar varios contribuyentes, si quieres
+                    buscar todos los contribuyentes que tengan alguna secuencia en común en sus RNCs o Cédulas. Ej:
+                    consultar
+                    todos los contribuyentes que contengan los números 402 en sus RNCs o cédula</p>
+                <h4 class="font-medium text-2xl">Parámetros</h4>
+                <hr class="mr-5 mb-2">
+                <h5><span class="font-bold">search</span> <span
+                        class="font-semibold ml-3">/taxpayers/by-rnc?search=401093657</span></h5>
+                <p class="text-gray-700 mb-2">Este parámetro es obligatorio en este endpoint para poder consultar por
+                    RNC o Cédula.</p>
+
+                <h5><span class="font-bold">limit</span> <span
+                        class="font-semibold ml-3">/taxpayers/by-rnc?search=402&limit=5</span></h5>
+                <p class="text-gray-700 mb-5">Si vas a consultar varios contribuyentes con alguna secuencia en común
+                    en sus RNCs o Cédula y la cantidad de registros es muy grande puede
+                    usar el parámetro limit para limitar la cantidad de registros.</p>
+
+
+                <h3 id="taxpayers-name" class="font-semibold text-3xl">/taxpayers/by-name <span
+                        style="color: #3CBD3A;">GET</span></h3>
+                <p class="mb-3 text-xl font-medium text-gray-700">Consultar por nombre un contribuyente. También puedes
+                    consultar varios contribuyentes, si quieres buscar
+                    todos los contribuyentes que tengan algún parámetro en común en sus nombres. Ej: todos los
+                    contribuyentes
+                    que sean ferreterías, colocas como valor ferretería y retornará todos los contribuyentes que en su
+                    nombre contenga ferretería.</p>
+                <h4 class="font-medium text-2xl">Parámetros</h4>
+                <hr class="mr-5 mb-2">
+                <h5><span class="font-bold">search</span> <span
+                        class="font-semibold ml-3">/taxpayers/by-name?search=ferreteria</span></h5>
+                <p class="text-gray-700 mb-2">Este parámetro es obligatorio en este endpoint para poder consultar por
+                    nombre.</p>
+
+                <h5><b>limit</b> <span class="font-semibold ml-3">/taxpayers/by-name?search=ferreteria&limit=2</span></h5>
+                <p class="text-gray-700">Si vas a consultar varios contribuyentes con algún parámetro en común y la
+                    cantidad
+                    de registro es muy
+                    grande
+                    puede usar el parámetro limit para limitar la cantidad de registros. Por defecto tiene como valor
+                    100.
+                </p>
+
+                <h4 class="font-medium text-2xl mt-2">Response</h4>
+                <hr class="mr-5 mb-5">
+                <img src="https://drive.google.com/uc?export=view&id=1hI8wGBn8C8HbFbZ1RLTNkX1HuQ48tvRg" alt="texpayers by name">
+
+                <h3 id="taxpayers-active" class="font-semibold text-3xl">/taxpayers/active-state <span
+                        style="color: #3CBD3A;">GET</span></h3>
+                <p class="mb-3 text-xl font-medium text-gray-700">Consultar todos los contribuyentes activos.</p>
+                <h4 class="font-medium text-2xl">Parámetros</h4>
+                <hr class="mr-5 mb-2">
+                <h5><b>limit</b> <span class="font-semibold ml-3">/taxpayers/active-state?limit=2</span></h5>
+                <p class="text-gray-700">Puedes usar el parámetro limit para limitar la cantidad de registros. Si no
+                    específica este parámetro,
+                    por
+                    defecto el valor es 100.</p>
+                <h4 class="font-medium text-2xl mt-2">Response</h4>
+                <hr class="mr-5 mb-5">
+                <img src="https://drive.google.com/uc?export=view&id=152VwN3xaQUsEZ4Y14iZT3Em3PM8aGUba" alt="texpayers are active">
+
+                <h3 id="taxpayers-inactive" class="font-semibold text-3xl">/taxpayers/inactive-state <span
+                        style="color: #3CBD3A;">GET</span></h3>
+                <p class="mb-3 text-xl font-medium text-gray-700">Consultar todos los contribuyentes no activos.</p>
+                <h4 class="font-medium text-2xl">Parámetros</h4>
+                <hr class="mr-5 mb-2">
+                <h5><b>limit</b> <span class="font-semibold ml-3">/taxpayers/inactive-state?limit=2</span></h5>
+                <p class="text-gray-700">Puedes usar el parámetro limit para limitar la cantidad de registros. Si no
+                    específica este parámetro,
+                    por
+                    defecto el valor es 100.</p>
+                <h4 class="font-medium text-2xl mt-2">Response</h4>
+                <hr class="mr-5 mb-5">
+                <img src="https://drive.google.com/uc?export=view&id=1DP0K3Jpg_xlwkX22HriSKcwjSFTmal8S" alt="texpayers are inactive">
+
+                <h3 id="taxpayers-discharged" class="font-semibold text-3xl">/taxpayers/discharged-state <span
+                        style="color: #3CBD3A;">GET</span></h3>
+                <p class="mb-3 text-xl font-medium text-gray-700">Consultar todos los contribuyentes dado de baja.</p>
+                <h4 class="font-medium text-2xl">Parámetros</h4>
+                <hr class="mr-5 mb-2">
+                <h5><b>limit</b> <span class="font-semibold ml-3">/taxpayers/discharged-state?limit=2</span></h5>
+                <p class="text-gray-700">Puedes usar el parámetro limit para limitar la cantidad de registros. Si no
+                    específica este parametro,
+                    por
+                    defecto el valor es 100.</p>
+                <h4 class="font-medium text-2xl mt-2">Response</h4>
+                <hr class="mr-5 mb-5">
+                <img src="https://drive.google.com/uc?export=view&id=15-Pwp6mzZPiQb5Fa5nLZ29-d0wQicXBk" alt="texpayers are discharged">
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
