@@ -34,7 +34,6 @@ def importDataToDb():
     df.columns = ['rnc_cedula', 'business_name', 'comercial_name', 'service_type', 'registered_date', 'state', 'payment_scheme']
 
     conn = create_connection()
-    remove_files()
     print("importing file to db...")
     df.to_sql('taxpayers', conn, if_exists='replace', index=False)
 
