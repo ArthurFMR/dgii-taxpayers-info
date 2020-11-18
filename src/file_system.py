@@ -1,4 +1,5 @@
 from urllib.request import urlretrieve
+from sqlalchemy import create_engine
 from zipfile import ZipFile
 import pandas as  pd
 import os
@@ -9,6 +10,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 zip_path = os.path.join(ROOT_DIR, 'files/DGII_RNC.zip')
 rnc_file_path = os.path.join(ROOT_DIR, 'files/TMP/DGII_RNC.TXT')
 
+DATABASE_URL = os.environ['DATABASE_URL']
 
 def download_file():
     print("downloading file...")
@@ -33,10 +35,10 @@ def importDataToDb():
     df.drop(df.columns[cols], axis=1, inplace=True)
     df.columns = ['rnc_cedula', 'business_name', 'comercial_name', 'service_type', 'registered_date', 'state', 'payment_scheme']
 
-    conn = create_connection()
+    engine = create_engine(DATABASE_URL)
     remove_files()
     print("importing file to db...")
-    df.to_sql('taxpayers', conn, if_exists='replace', index=False)
+    df.to_sql('taxpayers', engine, if_exists='replace', index=False)
 
 
 def execute():
