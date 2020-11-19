@@ -7,8 +7,6 @@ from datetime import date
 app = Flask(__name__)
 api_v = '/api/v1'
 
-cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-app.secret_key = "b'f1afa23342b5ef17079a34c76e1ae22a51dd475669b706f620489a481c35'"
 
 @app.route('/')
 def home():

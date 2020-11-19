@@ -3,14 +3,13 @@ from sqlalchemy import create_engine
 from zipfile import ZipFile
 import pandas as  pd
 import os
-import codecs
-from model_db import create_connection
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 zip_path = os.path.join(ROOT_DIR, 'files/DGII_RNC.zip')
 rnc_file_path = os.path.join(ROOT_DIR, 'files/TMP/DGII_RNC.TXT')
 
-#DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['DATABASE_URL']
 
 def download_file():
     print("downloading file...")
@@ -35,8 +34,8 @@ def importDataToDb():
     df.drop(df.columns[cols], axis=1, inplace=True)
     df.columns = ['rnc_cedula', 'business_name', 'comercial_name', 'service_type', 'registered_date', 'state', 'payment_scheme']
 
-    engine = create_engine('postgresql+psycopg2://postgres:Admin**@localhost/postgres')
-    #remove_files()
+    engine = create_engine(DATABASE_URL)
+    remove_files()
     print("importing file to db...")
     df.to_sql('taxpayers', engine, if_exists='replace', index=False)
 
@@ -48,4 +47,4 @@ def execute():
 
 
 if __name__ == "__main__":
-    importDataToDb()
+    execute()
