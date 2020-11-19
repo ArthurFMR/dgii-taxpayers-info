@@ -1,8 +1,6 @@
 from flask import Flask, request, Response, render_template , redirect, url_for
-from flask_cors import CORS
 from src.model_db import (select_all_taxpayers, select_taxpayer_by_rnc, select_taxpayer_by_name, select_taxpayer_by_state)
 import json
-from datetime import date
 
 app = Flask(__name__)
 api_v = '/api/v1'
