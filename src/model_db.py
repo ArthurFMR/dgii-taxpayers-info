@@ -1,18 +1,23 @@
-from psycopg2 import Error
+import psycopg2
+from psycopg2 import DatabaseError, Error
 from psycopg2.extras import RealDictCursor
 import os
-
-DATABASE_URL = os.environ['DATABASE_URL']
+#DATABASE_URL = os.environ['DATABASE_URL'] 
+CONFIG_CONNECTION = {"host":"localhost", "datadabase": "postgres", "password": "Admin**"}
 
 def create_connection():
     conn = None
 
     try:
-        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    except Error as e:
+        conn = psycopg2.connect( 
+            host="localhost",
+            database="postgres",
+            user="postgres",
+            password="Admin**"
+            )
+    except DatabaseError as e:
         print('Error conecting to db' + str(e))
-    finally:
-        return conn
+    return conn
 
 
 def select_all_taxpayers(limit=100):

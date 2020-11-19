@@ -1,4 +1,5 @@
 from flask import Flask, request, Response, render_template , redirect, url_for
+from flask_cors import CORS
 from src.model_db import (select_all_taxpayers, select_taxpayer_by_rnc, select_taxpayer_by_name, select_taxpayer_by_state)
 import json
 from datetime import date
@@ -6,6 +7,8 @@ from datetime import date
 app = Flask(__name__)
 api_v = '/api/v1'
 
+cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+app.secret_key = "b'f1afa23342b5ef17079a34c76e1ae22a51dd475669b706f620489a481c35'"
 
 @app.route('/')
 def home():

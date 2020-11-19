@@ -1,5 +1,5 @@
 Flask==1.1.2
 pandas==1.1.4
 gunicorn
-psycopg2-binary
+psycopg2
 sqlalchemy 
