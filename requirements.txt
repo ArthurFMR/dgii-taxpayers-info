@@ -3,4 +3,4 @@ pandas==1.1.4
 gunicorn
 psycopg2
 sqlalchemy
-flas_cors
+flask_cors
